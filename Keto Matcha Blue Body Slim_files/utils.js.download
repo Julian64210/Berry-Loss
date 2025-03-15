@@ -1,0 +1,50 @@
+$(document).ready(function() { 
+ var days, hours, minutes, seconds;
+ var target_date = new Date().getTime() + (500 * 1200);
+ var countdown = document.querySelectorAll(".timer");
+
+
+
+ function pad(n) {
+   return (n < 10 ? '0' : '') + n;
+ }
+
+
+
+ function getCountdown() {
+   var current_date = new Date().getTime();
+   var seconds_left = (target_date - current_date) / 1000;
+
+
+
+   seconds_left = seconds_left % 86400;
+   hours = pad(parseInt(seconds_left / 1200));
+   seconds_left = seconds_left % 1200;
+
+
+
+   minutes = pad(parseInt(seconds_left / 60));
+   seconds = pad(parseInt(seconds_left % 60));
+
+
+
+   for (var i = 0; i < countdown.length; i++) {
+     countdown[i].innerHTML = "<span>" + minutes + "</span><span>:</span><span>" + seconds + "</span>";
+   }
+ }
+
+
+
+ getCountdown();
+ setInterval(function () {
+   getCountdown();
+ }, 1000);
+ 
+  $("a").not('.policy').click(function(event){
+	  if (!$(this).hasClass('nohash')){	 
+        event.preventDefault();
+        $('html,body').animate({scrollTop:$(this.hash).offset().top - 400}, 400);
+	  }
+    });
+})
+
